@@ -1,20 +1,21 @@
 <template>
   <Header />
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-  </div>
+  <Container>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. 
+  </Container>
+  <Footer />
 </template>
 
 <script>
 import Header from './Header.vue'
+import Container from './Container.vue'
+import Footer from './Footer.vue'
 export default {
   name: 'Home',
   components: {
-    Header
+    Header,
+    Container,
+    Footer,
   }
 }
 </script>
-
-<style scoped lang="scss">
-
-</style>
