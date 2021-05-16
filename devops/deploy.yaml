@@ -5,6 +5,13 @@ pool:
 
 steps:
 
+- task: AzureKeyVault@1
+  inputs:
+    azureSubscription: 'Azure for Students(2f35d25b-ef92-4534-915a-9130530110fc)'
+    KeyVaultName: 'mainwebsitekeyvault2'
+    SecretsFilter: '*'
+    RunAsPreJob: true
+
 - task: Npm@1
   inputs:
     command: 'ci'
@@ -16,3 +23,5 @@ steps:
     app_build_command: 'npm run build'
     output_location: '/website/dist'
     routes_location: '/'
+  env:
+    azure_static_web_apps_api_token: $(website-deploy-token)
