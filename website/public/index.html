@@ -6,6 +6,18 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title><%= htmlWebpackPlugin.options.title %></title>
+    <link rel="preload" as="font" href="/fonts/DeterminationSansWebRegular.ttf" type="font/ttf" crossorigin="anonymous">
+    <link rel="preload" as="font" href="/fonts/WindowsRegular.ttf" type="font/ttf" crossorigin="anonymous">
+    <style>
+      @font-face {
+        font-family: 'DeterminationSansRegular';
+        src: url('/fonts/DeterminationSansWebRegular.ttf') format('truetype');
+      }
+      @font-face {
+        font-family: 'WindowsRegular';
+        src: url('/fonts/WindowsRegular.ttf') format('truetype');
+      }
+    </style>
   </head>
   <body>
     <noscript>

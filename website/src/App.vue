@@ -1,5 +1,5 @@
 <template>
-  <Home />
+  <component v-if="fontLoaded" v-bind:is="'Home'"></component>
 </template>
 
 <script>
@@ -7,32 +7,35 @@ import Home from './components/Home.vue'
 
 export default {
   name: 'App',
+  data: () => ({
+    fontLoaded: false,
+  }),
   components: {
     Home
-  }
+  },
+  async mounted() {
+    const fonts = await document.fonts.ready;
+    console.log('fonts loaded', await (fonts.ready));
+    document.body.classList.add('font-loaded')
+    this.fontLoaded = true
+  },
 }
 </script>
 
-<style>
-@font-face {
-  font-family: 'Pixellium';
-  src: url('./assets/Pixellium.ttf')  format('truetype');
-}
-@font-face {
-  font-family: 'DeterminationSansRegular';
-  src: url('./assets/DeterminationSansWebRegular.ttf')  format('truetype');
-}
-@font-face {
-  font-family: 'EightBitDragon';
-  src: url('./assets/EightBitDragon.ttf')  format('truetype');
-}
-@font-face {
-  font-family: 'Unifont';
-  src: url('./assets/Unifont.ttf')  format('truetype');
+<style lang="scss">
+body {
+  visibility: hidden;
+  font-display: auto;
+  font-family: 'WindowsRegular';
+  font-display: block;
+  
+  &.font-loaded {
+    visibility: visible;
+  }
 }
 
 #app {
-  font-family: 'Unifont';
   margin: 23px 14px;
 }
+
 </style>
