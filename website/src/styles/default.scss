@@ -1,0 +1,55 @@
+@import "colors";
+
+body {
+  visibility: hidden;
+  font-display: auto;
+  font-family: 'WindowsRegular';
+  font-display: block;
+  font-size: 15px;
+  line-height: 20px;
+  font-smooth: never;
+  -webkit-font-smoothing: never;
+  -moz-osx-font-smoothing: never;
+  
+  &.font-loaded {
+    visibility: visible;
+  }
+
+  h1 { 
+    font-size: 32px; 
+    border-bottom: 4px double $light-gray;
+    padding-bottom: 8px;
+  }
+  h2 { 
+    font-size: 24px; 
+    border-bottom: 1px solid $light-gray;
+    padding-bottom: 4px;
+  }
+  h3 { font-size: 18px; }
+  h4 { font-size: 15px; }
+  h5 { font-size: 13px; }
+
+  ul {
+    list-style-type: square;
+    padding-left: 20px;
+    ul {
+      list-style-type: disc;
+      ul {
+        list-style-type: circle;
+      }
+    }
+  }
+
+  table, td, th {
+    border: 1px solid $dark-gray;
+  }
+
+  table {
+    thead {
+      background-color: $light-gray;
+    }
+    td, th {
+      padding: 2px 7px;
+    }
+  }
+}

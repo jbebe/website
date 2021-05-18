@@ -1,0 +1,31 @@
+@function strip-units($number) {
+  @return $number / ($number * 0 + 1);
+}
+@mixin keyframes($animationName) {
+  $steps: 30;
+  @keyframes #{$animationName} {
+    @for $i from 0 through $steps {
+      $pct: percentage(round(($i / $steps) * 100) / 100);
+      #{$pct} {
+          $offset: round(($i / $steps) * 100);
+          transform: translateY($pct);
+      }
+      @if $pct < 100 {
+        #{$pct+1} {
+          $offset: round((($i+1) / $steps) * 100);
+          transform: translateY($pct);
+        }
+      }
+    }
+  }
+}
+
+@mixin animProps($animName, $speed, $delay) {
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: inherit;
+    background: white;
+    animation: $speed linear $delay 1 $animName;
+    animation-fill-mode: forwards;
+}

@@ -1,9 +1,15 @@
 <template>
-  <component v-if="fontLoaded" v-bind:is="'Home'"></component>
+  <div v-if="fontLoaded">
+    <Header />
+    <router-view />
+    <Footer />
+    <div class="screen"></div>
+  </div>
 </template>
 
 <script>
-import Home from './components/Home.vue'
+import Header from './components/common/Header.vue'
+import Footer from './components/common/Footer.vue'
 
 export default {
   name: 'App',
@@ -11,31 +17,45 @@ export default {
     fontLoaded: false,
   }),
   components: {
-    Home
+    Header,
+    Footer,
   },
   async mounted() {
-    const fonts = await document.fonts.ready;
-    console.log('fonts loaded', await (fonts.ready));
+    await document.fonts.ready
     document.body.classList.add('font-loaded')
     this.fontLoaded = true
+    setTimeout(() => {
+      const $screen = document.querySelector('.screen')
+      $screen.parentNode.removeChild($screen)
+    }, 4100)
+  },
+  watch: {
+    '$route' (to, from) {
+      document.title = to.meta.title || 'Your Website'
+    }
   },
 }
 </script>
 
 <style lang="scss">
-body {
-  visibility: hidden;
-  font-display: auto;
-  font-family: 'WindowsRegular';
-  font-display: block;
-  
-  &.font-loaded {
-    visibility: visible;
-  }
-}
+@import "styles/default";
 
 #app {
   margin: 23px 14px;
+
+  .screen {
+    position: fixed;
+    background-color: white;
+    display: none;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+
+    &.active {
+      display: block;
+    }
+  }
 }
 
 </style>
