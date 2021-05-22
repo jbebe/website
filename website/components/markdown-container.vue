@@ -30,7 +30,7 @@ export default {
 
   .md-container {
     margin: 13px 0 20px;
-    min-height: calc(100vh - 200px);
+    min-height: calc(100vh - 300px);
 
     .img-wrapper {
       display: flex;
