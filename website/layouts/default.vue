@@ -1,15 +1,15 @@
 <template>
   <div v-if="fontLoaded">
     <Header />
-    <router-view />
+    <Nuxt />
     <Footer />
     <div class="screen"></div>
   </div>
 </template>
 
 <script>
-import Header from './components/common/Header.vue'
-import Footer from './components/common/Footer.vue'
+import Header from './../components/header';
+import Footer from './../components/footer';
 
 export default {
   name: 'App',
@@ -38,7 +38,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "styles/default";
+@import "../assets/styles/default";
 
 #app {
   margin: 23px 14px;

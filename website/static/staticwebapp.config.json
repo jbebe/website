@@ -3,24 +3,8 @@
     {
       "route": "/",
       "rewrite": "/index.html"
-    },
-	{
-      "route": "/articles",
-      "rewrite": "/index.html"
-    },
-	{
-      "route": "/unknown",
-      "rewrite": "/index.html"
     }
   ],
-  "navigationFallback": {
-    "rewrite": "index.html",
-    "exclude": [
-		"/fonts/*", 
-		"/js/*",
-		"/css/*"
-	]
-  },
   "responseOverrides": {
     "404": {
       "rewrite": "/index.html"

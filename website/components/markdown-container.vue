@@ -1,16 +1,12 @@
 <template>
-  <div class="md-container" v-html="data"></div>
+  <div class="md-container">
+    <slot></slot>
+  </div>
 </template>
 
 <script>
 export default {
   name: 'MdContainer',
-  props: {
-  	data: {
-      type: String,
-      required: true,
-  	},
-  },
   mounted: () => {
     document.querySelectorAll('.md-container img').forEach(($img) => {
       const $imgContainer = document.createElement('div')
@@ -29,7 +25,7 @@ export default {
 </script>
 
 <style lang="scss">
-  @import '../../styles/animation';
+  @import '../assets/styles/animation';
   @include keyframes(imgAnim);
 
   .md-container {
@@ -39,7 +35,7 @@ export default {
       0% { opacity: 0 }
       100% { opacity: 1 }
     }
-    animation: 1ms linear 1500ms 1 flickerAnim;
+    animation: 1ms linear 700ms 1 flickerAnim;
     animation-fill-mode: forwards;
 
     .img-wrapper {

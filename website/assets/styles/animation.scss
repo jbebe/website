@@ -1,18 +1,17 @@
-@function strip-units($number) {
-  @return $number / ($number * 0 + 1);
-}
+@use 'sass:math' as math;
+
 @mixin keyframes($animationName) {
   $steps: 30;
   @keyframes #{$animationName} {
     @for $i from 0 through $steps {
-      $pct: percentage(round(($i / $steps) * 100) / 100);
+      $pct: percentage(math.div(round(math.div($i, $steps) * 100), 100));
       #{$pct} {
-          $offset: round(($i / $steps) * 100);
+          $offset: round(math.div($i, $steps) * 100);
           transform: translateY($pct);
       }
       @if $pct < 100 {
         #{$pct+1} {
-          $offset: round((($i+1) / $steps) * 100);
+          $offset: round(math.div($i + 1, $steps) * 100);
           transform: translateY($pct);
         }
       }

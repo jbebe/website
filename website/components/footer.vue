@@ -1,6 +1,8 @@
 <template>
-  <hr />
-  <div>© 2021 - <a href="https://balint.cloud">balint.cloud</a></div>
+  <div>
+    <hr />
+    <div>© 2021 - <a href="https://balint.cloud">balint.cloud</a></div>
+  </div>
 </template>
 
 <script>

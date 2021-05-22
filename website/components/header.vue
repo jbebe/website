@@ -1,27 +1,32 @@
 <template>
-  <div class="banner"></div>
-  <div class="menu">
-    <div class="item" v-for="item in menuItems" :key="item.text">
-      <div class="start"></div>
-      <a :href="item.href" class="text">{{ item.text }}</a>
-      <div class="end"></div>
+  <div>
+    <div class="banner"></div>
+    <div class="menu">
+      <div class="item" v-for="item in menuItems" :key="item.text">
+        <div class="start"></div>
+        <NuxtLink to="item.href" class="text">{{ item.text }}</NuxtLink>
+        <div class="end"></div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import router from "../../router";
 
 export default {
   name: 'Header',
   data: () => ({
-    menuItems: router.getRoutes().map(x => ({ text: x.name, href: x.path}))
+    menuItems: [
+      { text: 'About me', href: '/'},
+      { text: 'Articles', href: '/articles'},
+      { text: '???', href: '/unknown'},
+    ],
   }),
 }
 </script>
 
 <style scoped lang="scss">
-  @import '../../styles/animation';
+  @import '../assets/styles/animation';
   
   @include keyframes(bannerAnim);
   @include keyframes(itemAnim);
@@ -29,7 +34,7 @@ export default {
   .banner {
     width: 302px;
     height: 56px;
-    background-image: url(../../assets/logo.png);
+    background-image: url('../assets/images/logo.png');
     overflow: hidden;
     position: relative;
 
