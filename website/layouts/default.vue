@@ -1,9 +1,8 @@
 <template>
-  <div v-if="fontLoaded">
+  <div>
     <Header />
     <Nuxt />
     <Footer />
-    <div class="screen"></div>
   </div>
 </template>
 
@@ -13,21 +12,9 @@ import Footer from './../components/footer';
 
 export default {
   name: 'App',
-  data: () => ({
-    fontLoaded: false,
-  }),
   components: {
     Header,
     Footer,
-  },
-  async mounted() {
-    await document.fonts.ready
-    document.body.classList.add('font-loaded')
-    this.fontLoaded = true
-    setTimeout(() => {
-      const $screen = document.querySelector('.screen')
-      $screen.parentNode.removeChild($screen)
-    }, 4100)
   },
   watch: {
     '$route' (to, from) {
@@ -42,20 +29,6 @@ export default {
 
 #app {
   margin: 23px 14px;
-
-  .screen {
-    position: fixed;
-    background-color: white;
-    display: none;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-
-    &.active {
-      display: block;
-    }
-  }
 }
 
 </style>

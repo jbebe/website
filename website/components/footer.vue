@@ -5,23 +5,12 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'Home',
-  data: () => ({
-    menuItems: [
-      { text: 'Blog', href: '#' },
-      { text: '???', href: '#' },
-      { text: 'Contact', href: '#' },
-    ]
-  }),
-}
-</script>
-
 <style scoped lang="scss">
+  @import '../assets/styles/colors';
+
   hr {
-    border-bottom: #039 1px solid;
-    border-top: #9cceff 1px solid;
+    border-bottom: $dark-blue 1px solid;
+    border-top: $light-blue 1px solid;
   }
   div {
     font-size: 14px;

@@ -30,13 +30,7 @@ export default {
 
   .md-container {
     margin: 13px 0 20px;
-    opacity: 0;
-    @keyframes flickerAnim {
-      0% { opacity: 0 }
-      100% { opacity: 1 }
-    }
-    animation: 1ms linear 700ms 1 flickerAnim;
-    animation-fill-mode: forwards;
+    min-height: calc(100vh - 200px);
 
     .img-wrapper {
       display: flex;
@@ -55,7 +49,7 @@ export default {
           width: 100%;
           height: 100%;
           background: white;
-          animation: 2000ms linear 2000ms 1 imgAnim;
+          animation: 2000ms linear 100ms 1 imgAnim;
           animation-fill-mode: forwards;
         }
 

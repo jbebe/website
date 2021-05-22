@@ -4,7 +4,7 @@
     <div class="menu">
       <div class="item" v-for="item in menuItems" :key="item.text">
         <div class="start"></div>
-        <NuxtLink to="item.href" class="text">{{ item.text }}</NuxtLink>
+        <NuxtLink :to="item.href" class="text">{{ item.text }}</NuxtLink>
         <div class="end"></div>
       </div>
     </div>
