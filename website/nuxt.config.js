@@ -1,3 +1,5 @@
+import routing from './library/routes.generated'
+
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
@@ -48,10 +50,6 @@ export default {
   },
   
   generate: {
-		routes: [
-			'/',
-			'/articles',
-      '/unknown',
-		]
+		routes: routing.map(x => x.href),
 	},
 }

@@ -2,7 +2,11 @@
   <div>
     <div class="banner"></div>
     <div class="menu">
-      <div class="item" v-for="item in menuItems" :key="item.text">
+      <div 
+        v-for="item in menuItems" 
+        :key="item.text" 
+        v-bind:class="{ item: true, active: currentRoute == item.href }"
+      >
         <div class="start"></div>
         <NuxtLink :to="item.href" class="text">{{ item.text }}</NuxtLink>
         <div class="end"></div>
@@ -12,16 +16,26 @@
 </template>
 
 <script>
+import routing from '../library/routes.generated'
+
+function getParentPath(url) {
+  return url.replace(/(\/[^\/]+).*/g, '$1')
+}
 
 export default {
   name: 'Header',
   data: () => ({
-    menuItems: [
-      { text: 'About me', href: '/'},
-      { text: 'Articles', href: '/articles'},
-      { text: '???', href: '/unknown'},
-    ],
+    menuItems: routing,
+    currentRoute: '/'
   }),
+  created () {
+      this.currentRoute = getParentPath(this.$router.currentRoute.path)
+  },
+  watch: {
+    $route() {
+      this.currentRoute = getParentPath(this.$router.currentRoute.path)
+    },
+  },
 }
 </script>
 
@@ -45,7 +59,7 @@ export default {
   .menu {
     display: flex;
     margin-top: 4px;
-    font-family: 'DeterminationSansRegular';
+    font-family: 'DeterminationSansRegular', Arial, Verdana, Tahoma;
     font-size: 16px;
     line-height: 15px;
     height: calc(24px + 3px);
@@ -56,7 +70,7 @@ export default {
       position: relative;
       overflow: hidden;
       
-      &:hover, &:active {
+      &:hover, &:active, &.active {
         padding-top: 3px;
         text-decoration: underline;
       }
