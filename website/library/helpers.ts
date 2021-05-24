@@ -20,7 +20,7 @@ export async function loadArticlesAsync($content: any, articleName: string, slug
       // add parent path to slug url
       article.slug = `${articleName}/${article.slug}`
       // add badge for new articles
-      article.isNew = (new Date().getTime() -  new Date(article.createdAt).getTime()) / 3600000 < 7
+      article.isNew = (new Date().getTime() - new Date(article.createdAt).getTime()) / 3.6e7 < 7
       return article
     })
   }
