@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="app">
     <Header />
     <Nuxt />
     <Footer />
@@ -26,9 +26,15 @@ export default {
 
 <style lang="scss">
 @import "../assets/styles/default";
+@import '../assets/styles/breakpoints';
 
 #app {
   margin: 23px 14px;
+
+  @media (min-width: $breakpoint-tablet){
+    max-width: $breakpoint-tablet;
+    margin: 0 auto;
+  }
 }
 
 </style>

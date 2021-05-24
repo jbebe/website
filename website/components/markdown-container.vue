@@ -29,7 +29,7 @@ export default {
   @include keyframes(imgAnim);
 
   .md-container {
-    margin: 13px 0 20px;
+    margin: 13px 5px 20px;
     min-height: calc(100vh - 300px);
 
     .img-wrapper {

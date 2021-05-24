@@ -9,8 +9,10 @@
   @import '../assets/styles/colors';
 
   hr {
-    border-bottom: $dark-blue 1px solid;
-    border-top: $light-blue 1px solid;
+    border: none;
+    height: 2px;
+    border-top: $light-gray 4px double;
+    border-bottom: $light-gray 1px solid;
   }
   div {
     font-size: 14px;
