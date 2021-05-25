@@ -10,9 +10,17 @@
 
   hr {
     border: none;
-    height: 2px;
-    border-top: $light-gray 4px double;
+    height: 5px;
+    border-top: $light-gray 1px solid;
     border-bottom: $light-gray 1px solid;
+
+    &::before {
+      content: ' ';
+      display: block;
+      height: 1px;
+      border-bottom: $light-gray 1px solid;
+      padding-bottom: 1px;
+    }
   }
   div {
     font-size: 14px;
