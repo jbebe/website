@@ -46,9 +46,9 @@ export default {
   @include keyframes(itemAnim);
   
   .banner {
-    width: 302px;
+    width: 100%;
     height: 56px;
-    background-image: url('../assets/images/logo.png');
+    background: #d6e7ff url('../assets/images/logo.png') no-repeat 0 0;
     overflow: hidden;
     position: relative;
 
