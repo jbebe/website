@@ -54,8 +54,8 @@ export default {
         }
 
         img {
-          max-width: 80vw;
-          max-height: 50vh;
+          max-width: 100%;
+          max-height: 40vh;
           position: relative;
         }
         & + .img-alt {

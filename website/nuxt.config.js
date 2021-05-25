@@ -52,4 +52,9 @@ export default {
   generate: {
 		routes: routing.map(x => x.href),
 	},
+
+  // Public Configuration: https://nuxtjs.org/docs/2.x/directory-structure/nuxt-config/
+  publicRuntimeConfig: {
+    assetUrl: 'https://mainstorage3.blob.core.windows.net/website-storage'
+  }
 }

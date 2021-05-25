@@ -12,17 +12,10 @@ export async function loadArticlesAsync($content: any, articleName: string, slug
     return pages.length === 1 ? pages[0] : null
   }
   const getArticlesAsync = async () => {
-    const articleList = await $content(articleName)
-      .only(['title', 'slug', 'description', 'createdAt'])
-      .sortBy('createdAt', 'desc')
+    return await $content(articleName)
+      .only(['title', 'path', 'description', 'date'])
+      .sortBy('date', 'desc')
       .fetch()
-    return articleList.map((article: any) => {
-      // add parent path to slug url
-      article.slug = `${articleName}/${article.slug}`
-      // add badge for new articles
-      article.isNew = (new Date().getTime() - new Date(article.createdAt).getTime()) / 3.6e7 < 7
-      return article
-    })
   }
 
   let result = {

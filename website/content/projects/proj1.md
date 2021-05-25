@@ -1,10 +1,8 @@
 ---
-slug: project-1
+date: "2021-05-22"
 title: Nullus est liber tam malus ut non aliqua parte prosit.
 description: venenatis non semper sit amet
 ---
-
-# Nullus est liber tam malus ut non aliqua parte prosit.
 
 Donec augue nulla, venenatis non semper sit amet, elementum sit amet sapien. Aenean ac enim ut ipsum feugiat volutpat sed et turpis. Fusce lacinia placerat auctor. Nulla lacinia rutrum ex eu faucibus. Quisque eget neque ut mauris rutrum convallis. Quisque sollicitudin malesuada magna, ac consequat turpis molestie id. Phasellus quam purus, tincidunt id interdum vel, mollis quis ante. Quisque pretium odio vitae purus maximus mattis.
 

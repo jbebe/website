@@ -1,7 +1,8 @@
 ---
-slug: kingdom-come-hardcore
+date: "2021-05-24"
 title: "Kingdom Come: Deliverance - Hardcore Journal"
 description: In this journal I write down everything that happens to me in the game.
+cover: kingdom-come/cover.jpeg
 ---
 
 # Negative perks
