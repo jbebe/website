@@ -1,7 +1,7 @@
 <template>
   <div>
     <hr />
-    <div>© 2021 - <a href="https://balint.cloud">balint.cloud</a></div>
+    <div>© 2021 - <a href="https://balint.cloud">balint.cloud</a> - <a href="https://github.com/jbebe/website">View source</a></div>
   </div>
 </template>
 
