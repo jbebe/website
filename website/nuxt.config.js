@@ -56,5 +56,13 @@ export default {
   // Public Configuration: https://nuxtjs.org/docs/2.x/directory-structure/nuxt-config/
   publicRuntimeConfig: {
     assetUrl: 'https://mainstorage3.blob.core.windows.net/website-storage'
+  },
+
+  content: {
+    markdown: {
+      prism: {
+        theme: 'prism-themes/themes/prism-vs.css'
+      }
+    }
   }
 }

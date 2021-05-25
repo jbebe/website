@@ -7,13 +7,16 @@ export async function loadArticlesAsync($content: any, articleName: string, slug
         dir: `/${articleName}`,
         slug: slug,
       })
+      .where({ live: true })
       .limit(1)
       .fetch()
+      console.log(pages);
     return pages.length === 1 ? pages[0] : null
   }
   const getArticlesAsync = async () => {
     return await $content(articleName)
-      .only(['title', 'path', 'description', 'date'])
+      .only(['title', 'path', 'description', 'date', 'live'])
+      .where({ live: true })
       .sortBy('date', 'desc')
       .fetch()
   }
