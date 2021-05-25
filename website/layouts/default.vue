@@ -1,5 +1,14 @@
 <template>
   <div id="app">
+    <svg class="offscreen" width="0" height="0" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="crispify">
+          <feComponentTransfer>
+            <feFuncA type="discrete" tableValues="0 1"/>
+          </feComponentTransfer>
+        </filter>
+      </defs>
+    </svg>
     <Header />
     <Nuxt />
     <Footer />

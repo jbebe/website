@@ -14,6 +14,23 @@ body {
     visibility: visible;
   }
 
+  .offscreen {
+    position: absolute;
+    left: -100000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  h1, h2, h3, h4, h5 {
+    color: #1d1d1d;
+    font-weight: bold;
+    font-family: Arial, Verdana, Tahoma;
+    letter-spacing: -0.05em;
+    filter: url(#crispify);
+  }
+
   h1 { 
     font-size: 32px;
     line-height: 35px;

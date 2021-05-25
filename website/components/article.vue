@@ -7,8 +7,8 @@
         <div v-for="article of articles" :key="article.path">
             <h3 v-bind:class="{ new: isNew(article) }">
               <NuxtLink :to="article.path">{{ article.title }}</NuxtLink>
-              <small>{{ article.description }} - {{ article.date }}</small>
             </h3>
+            <small>{{ article.description }} - {{ article.date }}</small>
         </div>
       </div>
       <div v-if="page">
@@ -62,13 +62,14 @@
   }
   .md-container {
     h3 {
-      > small {
+      + small {
         display: block;
         font-weight: 100;
+        margin-top: -15px;
       }
 
       &.new {
-        > small {
+        + small {
           margin-left: 45px;
         }
         &::before {
