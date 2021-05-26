@@ -36,13 +36,15 @@ Today started with meeting the bailiff. I told him that I'm ready to serve with 
 
 # Day 3
 
-Going hunting
+In the early morning I met Hans next to the stables. Since I have no horse I had to jog next to him along the whole trip to the forest. We only had time to cook meal and sleep so this day was the least interesting so far. Thanks for nothing, Hans.
 
 # Day 4 
 
-Saving Hans Capon
+We started the hunt early. Hans and I agreed to a contest. The one who kills more hares wins. After a tiring day I won by far. Given how much I practiced archery back in Skalitz this is no surprise. My prize was 100 groschen. It's interesting how I won someone's lifesaving in dice two days ago and then Hans pulls the same amount out of his pocket. After that we went on hunting a boar. Hans was a bit cocky and the boar ran away. What happened next is still hard for me to talk about. I killed two men. They were cumans and they caught Hans in the forest. I saw a tent and Hans tied to a pole. I went for it without thinking. Luckily - for me - there were only two of them. With the element of surprise I stabbed the first one and proceeded to slash and block as much as I could. Just like how Captain Bernard taught me. At the end of the fight I was standing there, bleeding, my clothes all ragged. But at least I survived. We fled back to Rattay. Long story short I saved Hans Capon and got a horse in return. But I killed two men and I don't know how I'll account for it. I need to ask God about his plan with me.
 
 ## TODO: 
 
-* Find out about the Bakery girl that Nightingale mentioned
+* Find the Scribe in Ushitz to learn reading
+* Find a Priest to confess to about my misdeeds
+* Save the Bakery girl that Nightingale mentioned
 * Court Theresa, ask around about mutt
