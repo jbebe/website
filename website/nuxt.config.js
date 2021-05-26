@@ -19,6 +19,7 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { rel: 'preload', as: 'font', type: 'font/ttf', href: '/fonts/DeterminationSansWebRegular.ttf', crossorigin: 'anonymous' },
       { rel: 'preload', as: 'font', type: 'font/ttf', href: '/fonts/WindowsRegular.ttf', crossorigin: 'anonymous' },
+      { rel: 'preload', as: 'font', type: 'font/ttf', href: '/fonts/Dos.ttf', crossorigin: 'anonymous' },
     ],
   },
 

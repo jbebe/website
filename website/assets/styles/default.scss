@@ -70,4 +70,13 @@ body {
       padding: 2px 7px;
     }
   }
+
+  code {
+    font-family: 'Dos', monospace;
+    letter-spacing: -0.02em;
+  }
+
+  p > code {
+    background: $lightest-gray;
+  }
 }
