@@ -34,6 +34,14 @@ I mustered up enough energy to wake up. Turns out Theresa moved to the local mil
 
 Today started with meeting the bailiff. I told him that I'm ready to serve with what I have so he assigned me as a guard for one day. Nightingale the head watchman guided me through the town. We saw beggars, misbehaving guards and Hans Capon being a jerk again. Long story short he asked me to join him on a hunt. The day went by fast so all I had time for is crawling back to my bed. I'm really looking forward to the hunt but I need to prepare for parting with these people. I need to follow my own heart and not be ordered around forever.
 
+# Day 3
+
+Going hunting
+
+# Day 4 
+
+Saving Hans Capon
+
 ## TODO: 
 
 * Find out about the Bakery girl that Nightingale mentioned
