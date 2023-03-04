@@ -1,1 +1,0 @@
-export const WebsiteTitle = 'Bálint Juhász\'s Personal Home Page'

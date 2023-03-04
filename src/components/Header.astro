@@ -1,0 +1,35 @@
+---
+import HeaderLink from './HeaderLink.astro';
+import { SITE_TITLE } from '../consts';
+
+const links = Object.entries({
+  About: '/',
+  Articles: '/articles',
+  Projects: '/projects',
+});
+---
+
+<style lang='scss'>
+  @use 'constants' as *;
+
+  header {
+    width: 100%;
+
+    nav {
+      display: flex;
+      gap: 8px;
+    }
+
+    img {
+      width: 100%;
+    }
+  }
+</style>
+
+<header>
+  <img src='/cover.jpg' />
+  <h1>{SITE_TITLE}</h1>
+  <nav>
+    {links.map(([label, url]) => <HeaderLink href={url}>{label}</HeaderLink>)}
+  </nav>
+</header>

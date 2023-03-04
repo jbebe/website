@@ -1,0 +1,21 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '@components/Layout.astro';
+import { Image } from '@astrojs/image/components';
+
+const posts = (await getCollection('projects')).sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf());
+---
+
+<Layout>
+  <section>
+    <ul>
+      {
+        posts.map((post) => (
+          <li>
+            <a href={`/projects/${post.slug}/`}>{post.data.title}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</Layout>

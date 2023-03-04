@@ -1,0 +1,32 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = Omit<HTMLAttributes<'a'>, 'href'> & { href: string };
+
+const { href, class: className, ...props } = Astro.props;
+const { pathname } = Astro.url;
+const isActive = href === '/' ? pathname === href : `${pathname}/`.includes(`${href}/`);
+---
+
+<style lang='scss'>
+  @use 'constants' as *;
+
+  a {
+    padding: 2px 5px;
+    font-weight: 700;
+    text-decoration: underline;
+
+    &.active {
+      color: $background-color;
+      background-color: $font-color-dark;
+    }
+  }
+</style>
+
+<a
+  href={href}
+  class:list={[className, { active: isActive }]}
+  target={href.startsWith('http') ? '_blank' : '_self'}
+  {...props}>
+  <slot />
+</a>
