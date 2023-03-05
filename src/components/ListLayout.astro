@@ -1,0 +1,46 @@
+---
+import { getCollection, CollectionEntry } from 'astro:content';
+import type { CollectionTypes } from '@utils/types';
+import { formatDate } from '@utils/dates';
+import Layout from './Layout.astro';
+
+type Props = {
+  collection: CollectionTypes;
+};
+
+const { collection } = Astro.props;
+const posts = ((await getCollection(collection)) as (CollectionEntry<'articles'> | CollectionEntry<'projects'>)[])
+  .filter((x) => x.data.live)
+  .sort((a, b) => a.data.published.valueOf() - b.data.published.valueOf());
+---
+
+<style lang='scss'>
+  @use 'include-media' as include;
+  div {
+    h2 {
+      display: inline-block;
+      margin: 0;
+      text-decoration: inherit;
+    }
+    p {
+      margin: 0;
+      font-size: smaller;
+      font-style: italic;
+    }
+  }
+</style>
+
+<Layout>
+  {
+    posts.map((post) => (
+      <div>
+        <a href={`/${collection}/${post.slug}/`}>
+          <h2>{post.data.title}</h2>
+        </a>
+        <p>
+          [{formatDate(post.data.published)}] {post.data.description}
+        </p>
+      </div>
+    ))
+  }
+</Layout>

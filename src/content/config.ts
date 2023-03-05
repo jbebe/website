@@ -1,29 +1,21 @@
+import { Tag } from '@/consts';
 import { defineCollection, z } from 'astro:content';
 
-const articles = defineCollection({
+const tags = Object.values(Tag).map((x) => x.toString()) as [string, ...string[]];
+const articlesAndProjects = defineCollection({
   schema: z.object({
+    live: z.boolean(),
     title: z.string(),
     description: z.string(),
-    pubDate: z
+    published: z
       .string()
       .or(z.date())
       .transform((val) => new Date(val)),
+    tags: z.array(z.enum(tags)),
   }),
 });
 
-const projects = defineCollection({
-  schema: z.object({
-    title: z.string(),
-    description: z.string(),
-    pubDate: z
-      .string()
-      .or(z.date())
-      .transform((val) => new Date(val)),
-  }),
-});
-
-const about = defineCollection({
-  schema: z.object({}),
-});
-
-export const collections = { articles, projects, about };
+export const collections = {
+  articles: articlesAndProjects,
+  projects: articlesAndProjects,
+};

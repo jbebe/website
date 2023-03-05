@@ -1,12 +1,14 @@
 ---
+import type { CollectionEntry } from 'astro:content';
 import Layout from './Layout.astro';
+import PostDate from '@components/PostDate.astro';
 
 type Props = {
-  title: string;
-  description: string;
+  post: CollectionEntry<'articles'> | CollectionEntry<'projects'>;
 };
 
-const { title, description } = Astro.props;
+const { post } = Astro.props;
+const { Content } = await post.render();
 ---
 
 <style lang='scss'>
@@ -16,11 +18,26 @@ const { title, description } = Astro.props;
     :global(img) {
       width: 100%;
     }
+
+    p {
+      font-weight: 700;
+      font-size: 80%;
+      line-height: 80%;
+      display: flex;
+      margin: 0;
+      margin-bottom: 20px;
+      gap: 5px;
+    }
   }
 </style>
 
-<Layout title={title} description={description}>
+<Layout title={post.data.title} description={post.data.description}>
   <div>
-    <slot />
+    <h1>{post.data.title}</h1>
+    <p>
+      <PostDate date={post.data.published} />
+      {post.data.tags.map((x) => <span class='tag'>[{x}]</span>)}
+    </p>
+    <Content />
   </div>
 </Layout>

@@ -16,9 +16,17 @@ const isActive = href === '/' ? pathname === href : `${pathname}/`.includes(`${h
     font-weight: 700;
     text-decoration: underline;
 
-    &.active {
+    &.active,
+    &:active {
       color: $background-color;
       background-color: $font-color-dark;
+    }
+
+    &:hover,
+    &:focus {
+      &:not(.active) {
+        outline: 2px solid $font-color-dark;
+      }
     }
   }
 </style>

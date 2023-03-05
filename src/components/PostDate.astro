@@ -1,0 +1,10 @@
+---
+import { formatDate } from '@utils/dates';
+
+type Props = {
+  date: Date;
+};
+const { date } = Astro.props;
+---
+
+<span title={date.toDateString()}>[{formatDate(date)}]</span>

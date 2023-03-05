@@ -1,0 +1,117 @@
+---
+live: true
+title: 'Static site generator in Batch'
+description: 'My first site generator after moving from PHP scripting to GitHub'
+published: '2014-04-23'
+tags: ['web', 'exotic']
+---
+
+import InfoBox from '@components/Box/InfoBox.astro';
+
+## My affair with Batch
+
+Well, what can I say. Around 2012-2014 I got fond of Batch.
+Maybe because it's available on every Windows machine, honestly I don't really know.
+Somehow I liked things that work out of the box so I started writing small scripts
+and later some more complicated ones.
+
+Because of this interest, I soon created a guide to Batch for beginners, that you can
+[read here](https://web.archive.org/web/20140718105020/https://logout.hu/cikk/batch_script_mint_teljeserteku_nyelv/teljes.html).
+(The only problem is that it's written in hungarian)
+
+## Motivation
+
+Apparently I had just registered on GitHub and wanted to create my own
+[Jekyll](https://jekyllrb.com/) in... Batch.
+The specification is pretty simple. It has to parse raw text files and create one big html file
+filled with all the articles. Apparently I did not bother with creating different pages for different articles.
+
+## The actual generator
+
+Many years have passed since I touched Batch (note that these articles are more like necrologs)
+so explaining how it works is going to be a little harder, especially because we're talking about Batch. The grammar is just exceptionally alien to me.
+
+The root path of the repository contains 4 files and 1 directory like so:
+
+- `articles`
+- `_foot.html`
+- `_head.html`
+- `_sitebuild.bat`
+
+Here we can see that the only command we can issue is `.\_sitebuild.bat`, the rest of the files are just content that the command reads and writes. Let's inspect this dreaded script.
+
+```batch
+@ECHO off
+REM EVAL IN TWO ROW:
+SETLOCAL EnableDelayedExpansion
+REM SET UNICODE:
+CHCP 65001
+
+SET ARTICLES_DIR=articles
+SET HEAD=_head.html
+SET FOOT=_foot.html
+SET GITHUB_USER=jbebe
+
+TYPE %HEAD% > index.html
+ECHO ^<div id="banner"^>%GITHUB_USER%/blog^</div^> >> index.html
+
+FOR /F %%x IN ('DIR /B /D /O-D %ARTICLES_DIR%') DO (
+  SET entry=%%x
+  SET entry_date=!entry:~0,10!
+  SET entry_title=!entry:~11!
+  SET entry_title=!entry_title:_= !
+
+  ECHO ^<div class="date"^>!entry_date!^</div^>^<div class="line"^>^</div^> >> index.html
+  ECHO ^<h1^>^<a href="#%%x" id="%%x"^>!entry_title!^</a^>^</h1^> >> index.html
+  ECHO. >> index.html
+  TYPE %ARTICLES_DIR%\%%x >> index.html
+  ECHO.^<br/^>>> index.html
+)
+
+TYPE %FOOT% >> index.html
+```
+
+## First 5 commands
+
+On the first 5 lines we initialize the script.
+The first line, or more specifically `ECHO off` tells Batch to turn off outputting every
+command that is executed. This is not the same as `> /dev/null` because we're talking about
+the commands not their output.
+"Then why is there an @ symbol?" you might ask.
+Because @ temporarily turns off the command output.
+To be able to silence the command that silences the rest of the commands you need to use the
+inline 'silencer' symbol. And ladies and gentlemen this is the moment
+I gave up on not being sarcastic about explaining this script. Even the first row is such a joke. Anyway.
+
+You know Unix shell scripts use commands to imitate conditions, loops, etc. Batch goes as far
+so you can issue a command to create a comment. It's called `REM` and it literally
+has no meaning, it's just a placeholder command for comments. Of course, you can use
+`::` which is an actual comment feature in Batch, but for some reason I did not use it.
+
+<InfoBox>
+  You know what? Let's peek into the implementation of Batch and see how they implemented `REM`. 
+  So apparently the command is assigned to the NullHandler.
+  Here's the implementation of the NullHandler:
+```c
+/*
+ *  Do nothing. Return TRUE so the the command will not
+ *  be considered as bad.
+ */
+int NullHandler (char *lpParam)
+{
+    return(TRUE);
+}
+```
+  Understandable, have a nice day.
+</InfoBox>
+
+The next command is `SETLOCAL EnableDelayedExpansion`. Oh boy. Why did I even start this report?
+Okay. So [`SETLOCAL`](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/setlocal)
+is _supposed to_ create a scope for environment variables, meaning you can
+manipulate them until the execution reaches the `ENDLOCAL` command.
+Instead of stopping right there in functionality, there are two extra parameters that changes the behavior
+of the script, one of them is `EnableDelayedExpansion`.
+
+## Commands before the FOR loop
+
+[» GitHub link](https://github.com/jbebe/jbebe-blog)

@@ -1,8 +1,6 @@
 ---
-import { getCollection } from 'astro:content';
 import Layout from '../components/Layout.astro';
-
-const { Content: About } = await (await getCollection('about'))[0].render();
+import About from '../content/about/index.mdx';
 ---
 
 <Layout>
