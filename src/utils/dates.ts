@@ -1,5 +1,4 @@
-import format from 'date-fns/format';
-import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+import { format, formatDistanceToNow } from 'date-fns';
 
 export const formatDate = (date: Date) => {
   return format(date, 'yy-MM-dd');
