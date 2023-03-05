@@ -7,5 +7,8 @@
   "files.autoSave": "off", // optional but recommended
   "[astro]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[svg]": {
+    "editor.defaultFormatter": "jock.svg"
   }
 }
