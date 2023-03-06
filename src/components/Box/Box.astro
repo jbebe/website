@@ -28,9 +28,13 @@ const iconStyle = {
   fontSize: '25px',
   color: 'black',
 } as CSSStyleDeclaration;
+
+const contentStyle = {
+  minWidth: '0',
+} as CSSStyleDeclaration;
 ---
 
 <div style={wrapperStyle}>
   <div style={iconStyle}>{emoji}</div>
-  <div><slot /></div>
+  <div style={contentStyle}><slot /></div>
 </div>
