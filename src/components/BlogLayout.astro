@@ -8,6 +8,7 @@ type Props = {
 };
 
 const { post } = Astro.props;
+const slug = `${post.collection}-${post.slug}`;
 ---
 
 <style lang='scss'>
@@ -38,5 +39,19 @@ const { post } = Astro.props;
       {post.data.tags.map((x) => <span class='tag'>[{x}]</span>)}
     </p>
     <slot />
+    <div id='disqus_thread'></div>
   </div>
+  <script slot='third-party' is:inline define:vars={{ identifier: slug }} defer>
+    var disqus_config = function () {
+      this.page.url = `${location.origin}${location.pathname}`;
+      this.page.identifier = identifier;
+    };
+    (function () {
+      var d = document,
+        s = d.createElement('script');
+      s.src = 'https://balint-cloud.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
 </Layout>
