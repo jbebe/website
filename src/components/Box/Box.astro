@@ -5,36 +5,88 @@ type Props = {
   type: BoxType;
 };
 const { type } = Astro.props;
-const [bgColor, borderColor, emoji] = (
-  {
-    neutral: ['#f9f9f9', '#e5e5e5', '🦝'],
-    info: ['#edf4ff', '#bed9ff', '🗣️'],
-    warning: ['#f9f9f9', '#e5e5e5', '⚠️'],
-    error: ['#f9f9f9', '#e5e5e5', '⛔'],
-  } as Record<BoxType, [string, string, string]>
-)[type];
-
-const wrapperStyle = {
-  display: 'flex',
-  flexDirection: 'row',
-  background: bgColor,
-  border: `1px solid ${borderColor}`,
-  borderRadius: '4px',
-  padding: '10px 15px',
-  gap: '5px',
-} as CSSStyleDeclaration;
-
-const iconStyle = {
-  fontSize: '25px',
-  color: 'black',
-} as CSSStyleDeclaration;
-
-const contentStyle = {
-  minWidth: '0',
-} as CSSStyleDeclaration;
 ---
 
-<div style={wrapperStyle}>
-  <div style={iconStyle}>{emoji}</div>
-  <div style={contentStyle}><slot /></div>
+<style lang='scss'>
+  @use 'include-media' as include;
+  @use 'constants' as *;
+
+  .md-box {
+    display: flex;
+    flex-direction: row;
+    border-radius: $border-size;
+    padding: 15px;
+    gap: 5px;
+    border-width: 1px;
+    border-style: solid;
+
+    @include include.media('>=tablet') {
+      padding-left: 12px;
+    }
+
+    &::before {
+      font-size: 25px;
+      display: none;
+
+      @include include.media('>=tablet') {
+        display: block;
+      }
+    }
+
+    &.neutral {
+      background: #f9f9f9;
+      border-color: #e5e5e5;
+
+      &::before {
+        content: '🦝';
+      }
+    }
+
+    &.info {
+      background: #edf4ff;
+      border-color: #bed9ff;
+
+      &::before {
+        content: '🗣️';
+      }
+    }
+
+    &.warning {
+      background: #f9f9f9;
+      border-color: #e5e5e5;
+
+      &::before {
+        content: '⚠️';
+      }
+    }
+
+    &.error {
+      background: #f9f9f9;
+      border-color: #e5e5e5;
+
+      &::before {
+        content: '⛔';
+      }
+    }
+
+    .md-box-content {
+      min-width: 0;
+
+      :global(> *:first-of-type) {
+        margin-top: 0;
+      }
+
+      :global(> *:last-of-type) {
+        margin-bottom: 0;
+      }
+
+      :global(pre) {
+        padding: 10px 15px;
+      }
+    }
+  }
+</style>
+
+<div class:list={['md-box', type]}>
+  <div class='md-box-content'><slot /></div>
 </div>

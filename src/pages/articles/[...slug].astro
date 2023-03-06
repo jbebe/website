@@ -3,8 +3,15 @@ import type { CollectionEntry } from 'astro:content';
 import BlogLayout from '@components/BlogLayout.astro';
 import { getPosts } from '@utils/collection-helpers';
 
-export const getStaticPaths = async () => getPosts('articles');
+export async function getStaticPaths() {
+  return await getPosts('articles');
+}
+
 type Props = CollectionEntry<'articles'>;
+const props = Astro.props;
+const { Content } = await props.render();
 ---
 
-<BlogLayout post={Astro.props} />
+<BlogLayout post={props}>
+  <Content />
+</BlogLayout>
