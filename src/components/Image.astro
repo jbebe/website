@@ -1,0 +1,29 @@
+---
+type Props = {
+  src: string;
+  alt: string;
+};
+const { alt, src } = Astro.props;
+---
+
+<style lang='scss'>
+  div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    img {
+      max-width: auto;
+    }
+
+    p {
+      text-align: center;
+      font-style: italic;
+    }
+  }
+</style>
+
+<div>
+  <img src={src} alt={alt} />
+  <p>{alt}</p>
+</div>

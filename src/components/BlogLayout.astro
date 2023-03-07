@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import Layout from './Layout.astro';
+import TableOfContents from './TableOfContents.astro';
 import PostDate from '@components/PostDate.astro';
 
 type Props = {
@@ -8,15 +9,19 @@ type Props = {
 };
 
 const { post } = Astro.props;
+
+const { headings } = await post.render();
 const slug = `${post.collection}-${post.slug}`;
 ---
 
 <style lang='scss'>
   @use 'include-media' as include;
+  @use 'constants' as *;
 
   div {
     :global(img) {
-      width: 100%;
+      max-width: 100%;
+      margin: 0 auto;
     }
 
     p {
@@ -28,16 +33,28 @@ const slug = `${post.collection}-${post.slug}`;
       margin-bottom: 20px;
       gap: 5px;
     }
+
+    h1 > small {
+      background-color: $border-color;
+      border-radius: $border-size;
+      font-size: 50%;
+      padding: 1px 5px;
+    }
   }
 </style>
 
 <Layout title={post.data.title} description={post.data.description}>
   <div>
-    <h1>{post.data.title}</h1>
+    <h1>
+      {post.data.title}
+      {post.data.live ? '' : <small>Draft</small>}
+    </h1>
     <p>
       <PostDate date={post.data.published} />
       {post.data.tags.map((x) => <span class='tag'>[{x}]</span>)}
     </p>
+    <!-- enable if read time is longer <TableOfContents headings={headings} />
+    <hr />-->
     <slot />
     <hr />
     <h1>Comments:</h1>

@@ -10,17 +10,23 @@ type Props = {
 
 const { collection } = Astro.props;
 const posts = ((await getCollection(collection)) as (CollectionEntry<'articles'> | CollectionEntry<'projects'>)[])
-  .filter((x) => x.data.live)
+  .filter((x) => import.meta.env.DEV || x.data.live)
   .sort((a, b) => a.data.published.valueOf() - b.data.published.valueOf());
 ---
 
 <style lang='scss'>
   @use 'include-media' as include;
+  @use 'constants' as *;
+
   div {
     h2 {
       display: inline-block;
       margin: 0;
       text-decoration: inherit;
+
+      &.unpublished {
+        color: $border-color;
+      }
     }
     p {
       margin: 0;
@@ -35,7 +41,7 @@ const posts = ((await getCollection(collection)) as (CollectionEntry<'articles'>
     posts.map((post) => (
       <div>
         <a href={`/${collection}/${post.slug}/`}>
-          <h2>{post.data.title}</h2>
+          <h2 class={post.data.live ? '' : 'unpublished'}>{post.data.title}</h2>
         </a>
         <p>
           [{formatDate(post.data.published)}] {post.data.description}

@@ -1,16 +1,6 @@
 @use 'include-media' as include;
 @use 'constants' as *;
 
-$background-color: #fff;
-$background-color-shade1: #f9f9f9;
-$border-color: #e5e5e5;
-$font-color: #292929;
-$font-color-dark: #000;
-$family: 'Source Serif Pro', Georgia, Cambria, 'Times New Roman', Times, serif;
-$sans-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-$monospace-family: 'Source Code Pro', Menlo, Monaco, 'Courier New', Courier, monospace;
-$border-size: 4px;
-
 body {
   margin: 0;
   background: $background-color;
@@ -82,7 +72,7 @@ pre {
   font-weight: 400;
 }
 
-p > code {
+*:not(pre) > code {
   display: inline-block;
   font-size: 75%;
   font-family: $monospace-family;
@@ -110,4 +100,16 @@ a {
   cursor: pointer;
   font-weight: 400;
   color: inherit;
+}
+
+li {
+  margin: 3px 0;
+}
+
+blockquote {
+  > * {
+    color: $font-color-shade1;
+    border-left: 4px solid $border-color;
+    padding-left: 10px;
+  }
 }

@@ -7,6 +7,8 @@ tags: ['web', 'exotic']
 ---
 
 import InfoBox from '@components/Box/InfoBox.astro';
+import Image from '@components/Image.astro';
+import image from './_first-blog.gif';
 
 # My affair with Batch
 
@@ -85,8 +87,8 @@ int NullHandler (char *lpParam)
 
 The next command is `SETLOCAL EnableDelayedExpansion`. Oh boy. Why did I even start this report?
 So `SETLOCAL` is _supposed to_ create a new scope for environment variables, meaning, you can
-manipulate `%PATH%` until the execution reaches the `ENDLOCAL` command. 
-(You can read about it at [Microsoft](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/setlocal) 
+manipulate `%PATH%` until the execution reaches the `ENDLOCAL` command.
+(You can read about it at [Microsoft](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/setlocal)
 or at [ss64.com](https://ss64.com/nt/delayedexpansion.html). The latter one is a little bit more helpful)
 
 You could say that it's a nice round feature, time to ship it. But no. Bill Gates had other plans.
@@ -104,10 +106,10 @@ TYPE %HEAD% > index.html
 ECHO ^<div id="banner"^>%GITHUB_USER%/blog^</div^> >> index.html
 ```
 
-The first 4 `SET`s are self explanatory, but then we meet `TYPE`. 
+The first 4 `SET`s are self explanatory, but then we meet `TYPE`.
 Is it a file type tester? Does it type the arguments on the output?
 You're so far from the answer. `TYPE` is the `cat` of Batch.
-So basically we cat the content of the `_head.html` into index.html.
+So basically we cat the content of `_head.html` into index.html.
 
 Then on the next line we're escaping some inequality symbols and append the blog title into the index file.
 Nothing too fancy.
@@ -127,10 +129,47 @@ FOR /F %%x IN ('DIR /B /D /O-D %ARTICLES_DIR%') DO (
   TYPE %ARTICLES_DIR%\%%x >> index.html
   ECHO.^<br/^>>> index.html
 )
+```
 
+Beware, we are reaching PhD grade Batch scripting territory.
+[For loops](https://ss64.com/nt/for.html) receive parameters.
+If you want to iterate over files, you use `FOR %%i IN (dir ...)`.
+If you want to iterate over file contents, you need to add the /F switch too.
+This way, `%%i` will contain the file content instead of just the name.
+
+Let's see the "IN.." part of the for loop.
+You might be wondering why I had a stroke so late into writing this script.
+But fear not as those flags for the dir command are actually useful.
+
+- `/B` removes the heading, file size and summary
+- `/D` aligns file names so each one is on a new line
+- `/O-D` sorts the files by creation date
+
+We iterate over the articles directory and set the file content (`entry`) and other properties.
+This is the moment you have to ask what those exclamation marks are.
+Why didn't I use percent signs as before?
+It's because the whole for loop in Batch is a single command.
+In a single command you can only evaluate a variable once.
+Why? That's why:
+
+> The SET command was first introduced with MS-DOS 2.0 in March 1983,
+> at that time memory and CPU were very limited and the expansion of
+> variables once per line was enough.
+
+Moving on, `!entry:~0,10!` means take the variable `entry`, and substring it from 0 to 10.
+`entry_title=!entry_title:_= !` means replace all underscore characters with spaces.
+We create another html fragment with the given information and then write it to the index.html with the content as well.
+
+# Closing Pandora's box
+
+```batch
 TYPE %FOOT% >> index.html
 ```
 
-This is the 
+For the last step, we cat the footer into the html and the blog is created.
+
+# Final output
+
+<Image src={image} alt='Screenshot of the blog' />
 
 [» GitHub link](https://github.com/jbebe/jbebe-blog)

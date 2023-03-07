@@ -1,0 +1,23 @@
+---
+import type { MarkdownHeading } from '@astrojs/markdown-remark';
+
+type Props = {
+  headings: MarkdownHeading[];
+};
+const { headings } = Astro.props;
+---
+
+<div>
+  <p>Table of contents:</p>
+  <ul>
+    {
+      headings
+        .filter((x) => x.depth === 1)
+        .map((x) => (
+          <li>
+            <a href={`#${x.slug}`}>{x.text}</a>
+          </li>
+        ))
+    }
+  </ul>
+</div>
