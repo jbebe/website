@@ -11,7 +11,7 @@ type Props = {
 const { collection } = Astro.props;
 const posts = ((await getCollection(collection)) as (CollectionEntry<'articles'> | CollectionEntry<'projects'>)[])
   .filter((x) => import.meta.env.DEV || x.data.live)
-  .sort((a, b) => a.data.published.valueOf() - b.data.published.valueOf());
+  .sort((a, b) => (a.data.published.valueOf() - b.data.published.valueOf()) * -1 /*DESC*/);
 ---
 
 <style lang='scss'>
