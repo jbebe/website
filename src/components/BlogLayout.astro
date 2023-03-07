@@ -39,6 +39,8 @@ const slug = `${post.collection}-${post.slug}`;
       {post.data.tags.map((x) => <span class='tag'>[{x}]</span>)}
     </p>
     <slot />
+    <hr />
+    <h1>Comments:</h1>
     <div id='disqus_thread'></div>
   </div>
   <script slot='third-party' is:inline define:vars={{ identifier: slug }} defer>
