@@ -1,13 +1,159 @@
 ---
-live: false
+live: true
 title: 'NAT detector for the college dorm'
 description: 'I paired up with one of my friends and tried to create a very simple tool. We failed.'
 published: '2015-09-01'
 tags: ['c++', 'networking']
 ---
 
+import InfoBox from '@components/Box/InfoBox.astro';
+import GitHub from '@components/GitHubLink.astro';
+import Image from '@components/Image.astro';
+import architecture from './_architecture.svg';
+import architecture2 from './_architecture2.svg';
+
 I was a second year student at [BME](https://vik.bme.hu/en/) when my friend invited me over to
-one of the most popular faculty, called [KSZK](https://kszk.bme.hu/). They offered a lot professionally
+one of the most popular subgroup in the [faculty](https://kszk.bme.hu/). They offered a lot professionally
 in exchange for maintaining the network of the whole dorm.
 These people learned by themselves from placing APs, measuring signal strength, configuring
-the network on every floor, tangle themselves in patch cables, creating and hosting services for the students.
+the network on every floor, tangle themselves in patch cables, creating and hosting services
+for the students and from time to time, (but most importantly, lending pots to students to cook).
+
+Every student had to register their devices on the network, otherwise they couldn't even connect.
+So if you had a phone, a tablet and a laptop, that's three devices that needs to be registered and tracked by
+the dorm network.
+
+# The problem
+
+Some of these students were tired of this whole ordeal so they registered their own WiFi enabled router
+on the network and connected whatever device they wanted on that network.
+Somehow this wasn't desired by us, maintainers although I don't remember why.
+
+# The solution
+
+<Image src={architecture} alt='Network architecture of the detector' />
+
+We wanted to detect such behaviors by tapping on the dorm egress line.
+This was meant to be done by port mirroring the main switch.
+(In theory) we would have connected the mirrored data to the second ethernet port of the server
+while the primary one can be used for communication.
+
+The only issue was that we never really finished it. I put a reasonable amount of code into it
+but somehow it never reached a decent state where we could try it out.
+All I can do now is presenting the half-done logic.
+
+# The Half-done Logic
+
+The project was written in C++ that pretty much made it 2 times harder to write
+than Python, for example. For us, I mean. But let's start at the beginning.
+
+At top level the program consist of two parts; initialization and running.
+Let's start with the initialization part.
+
+```cpp
+void init_signals(){
+    struct sigaction sa;
+    memset(&sa, 0, sizeof(sa));
+    sa.sa_handler = exit_netsec;
+    sigaction(SIGINT, &sa, NULL);
+}
+```
+
+The program starts with initializing signals, specifically SIGINT.
+This is an important step because we need to shut down packet consuming gracefully
+if we later exit the application.
+
+<InfoBox>
+  The SIGINT signal is sent to a process by its controlling terminal when a user wishes to interrupt the process.
+  ([Wikipedia](https://en.wikipedia.org/wiki/Signal_(IPC)))
+</InfoBox>
+
+Then we initialize the consumers and the producer with respect to the CPU core count.
+
+```cpp
+int consumers_num = std::max<int>(CORE_NUM - 1, 1);
+consumers.reserve(consumers_num);
+for (int i = 0; i < consumers_num; i++) {
+    consumers.emplace_back(
+        &stats_data, PacketConsumer::PluginPack{...}
+    );
+}
+producer = PacketProducer::debugInstance(interface, "src host 192.168.0.100");
+```
+
+After this stage, we call `run()` and all the threads we just created are started.
+From now on, _Producer_ feeds the mirrored packets into a ~~[ring buffer](https://en.wikipedia.org/wiki/Circular_buffer)
+while the _Consumers_ are trying to consume as many entries as possible.
+The bigger the buffer, the less chance for the consumer to stuck in waiting state.~~
+It's round robin with a queue in front of every consumer,
+but originally I wanted to do it with a ring buffer.
+
+Let's see how the producer works:
+
+```cpp
+#include <pcap.h>
+...
+class PacketProducer {
+    ...
+    void get(RawPacketElem *temp_packet){
+        struct pcap_pkthdr hdr;
+        const uint8_t *data;
+        while ((data = pcap_next(pcap_handle, &hdr)) == NULL);
+        if (hdr.caplen < hdr_len){
+            throw std::system_error{};
+        }
+        else {
+            data += hdr_len;
+            hdr.caplen -= hdr_len;
+        }
+        *temp_packet = RawPacketElem{data, hdr.caplen};
+    }
+    void run(std::vector<PacketConsumer> *consumers){
+        RawPacketElem data;
+        get(&data);
+        while (RUN_PRODUCER){
+            for (auto &consumer : *consumers){
+                if (consumer.try_put(&data)){
+                    get(&data);
+                }
+            }
+        }
+        RUN_CONSUMER.store(false);
+        for (auto &consumer : *consumers){
+            // wake consumers
+            consumer.put(&data);
+        }
+    }
+    ...
+}
+```
+
+The `run()` method gets some data into the `RawPacketElem` variable and
+starts an infinite loop to round-robin between the consumers.
+If a consumer is not available and `try_put` returns false,
+it keeps going and feeds the rest of the consumers.
+`get()` simply reads from the port with `pcap_next()`.
+
+The consumer has a locking queue in front of it so that when there are no
+items to dequeue, the consumer is in a waiting state.
+Same goes for the producer. If the queue is full, producer is in a waiting state.
+This behavior is solved by [semaphores](<https://en.wikipedia.org/wiki/Semaphore_(programming)#Semaphores_vs._mutexes>).
+
+<Image src={architecture2} alt='Architecture of the detector' />
+
+Plugins are - as the name implies - plugins. You can hook on udp, tcp, ipv4 or ipv6.
+They are expected to report informations given to them.
+Consumers have them available and call all plugins for every packet they captured.
+That's why the producer will be paused most of the time as the plugins
+are too slow compared to the very few lines of Producer.
+
+This project looks almost finished but somehow it didn't reach that stage
+where I could have told the other students that it's ready.
+I honestly regret it because I searched the internet and
+it turns out they started over in 2019 (4 years later) and reached their goals after a good 6 months.
+I reached out to the current team leader via e-mail so that I can close this project introduction
+with grace.
+
+_coming soon_
+
+<GitHub url='https://github.com/jbebe/netsec' />
