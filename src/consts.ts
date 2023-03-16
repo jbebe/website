@@ -7,4 +7,6 @@ export enum Tag {
   Exotic = 'exotic',
   Cpp = 'c++',
   Networking = 'networking',
+  Bugprove = 'bugprove',
+  Email = 'email',
 }

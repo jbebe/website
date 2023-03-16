@@ -53,8 +53,8 @@ const slug = `${post.collection}-${post.slug}`;
       <PostDate date={post.data.published} />
       {post.data.tags.map((x) => <span class='tag'>[{x}]</span>)}
     </p>
-    <!-- enable if read time is longer <TableOfContents headings={headings} />
-    <hr />-->
+    <TableOfContents headings={headings} />
+    <hr />
     <slot />
   </div>
 </Layout>

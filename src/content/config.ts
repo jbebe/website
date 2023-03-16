@@ -12,6 +12,7 @@ const articlesAndProjects = defineCollection({
       .or(z.date())
       .transform((val) => new Date(val)),
     tags: z.array(z.enum(tags)),
+    toc: z.boolean().optional(),
   }),
 });
 

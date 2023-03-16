@@ -1,7 +1,7 @@
 import { format, formatDistanceToNow } from 'date-fns';
 
 export const formatDate = (date: Date) => {
-  return format(date, 'yy-MM-dd');
+  return format(date, 'yyyy-MM-dd');
 };
 
 export const dateDistance = (date: Date) => {

@@ -1,0 +1,73 @@
+---
+live: false
+title: How we made email template development easy (at Bugprove)
+description: 'Lorem ipsum dolor sit amet'
+published: '2023-03-12'
+tags: ['bugprove', 'email', 'web']
+toc: true
+---
+
+_This guide targets experienced frontend developers who want guidance
+on how to create a good email template project.
+I am not sharing the final code, only the important steps.
+Some of our decisions are company-specific,
+so the takeaway is the process as a whole._
+
+# State of html emails
+
+- mjml and other solutions to creating email templates
+- weird ms outlook behavior, specific behavior for different clients
+
+# Why MJML?
+
+- Describe what mjml does and how that’s beneficial for us
+
+---
+
+# MJML + React
+
+- How @faire/react-mjml helps with development
+
+---
+
+# Choose your bundler
+
+- Webpack or vite
+- I’ll just mention webpack and don’t go into too much detail. Explain vite in detail, why we chose it over webpack.
+
+---
+
+# Implementation
+
+## Expectation
+
+- Diagram of the whole flow
+- What transformation do we want from start to finish
+
+## Creating the plugin
+
+- Where to hook
+- Required packages
+- Attachment creation
+- Parameter extraction
+
+## Creating the dev server
+
+- Express.js
+- Vite middleware
+- Parameter filling
+- Live reload injection
+
+## Type generator
+
+- For C#
+- Flags are bools
+- Fill everything
+- Really simple
+
+---
+
+# How the process continues
+
+- CI upload to S3
+- AWS Email add attachments, custom send on backend
